@@ -1,0 +1,165 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+   
+    tools:context=".DrawingActivity"
+    android:id="@+id/rel" >
+
+  
+    
+      
+
+      
+
+     
+
+      <LinearLayout
+          android:id="@+id/tool"
+          android:layout_width="100dp"
+          android:layout_height="fill_parent"
+          android:layout_alignParentLeft="true"
+          android:layout_alignParentTop="true"
+          android:orientation="vertical"
+       
+          android:background="@drawable/bara" >
+
+          <ImageView
+              android:id="@+id/imageView1"
+              android:layout_marginTop="20dp"
+               android:layout_marginBottom="8dp"
+               android:paddingTop="4dp"
+                 android:paddingBottom="4dp"
+                android:layout_marginLeft="30dp"
+                 android:layout_marginRight="30dp"
+              android:scaleType="centerInside"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:src="@drawable/line" 
+              android:background="@drawable/patrat"
+              android:layout_weight="2"
+              android:onClick="wall"/>
+          <ImageView
+              android:id="@+id/imageView1"
+              android:layout_marginTop="8dp"
+               android:layout_marginBottom="8dp"
+               android:paddingTop="4dp"
+                 android:paddingBottom="4dp"
+                android:layout_marginLeft="30dp"
+                 android:layout_marginRight="30dp"
+              android:scaleType="centerInside"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:src="@drawable/door" 
+              android:background="@drawable/patrat"
+              android:layout_weight="2"
+              android:onClick="door"/>
+          <ImageView
+              android:id="@+id/imageView1"
+              android:layout_marginTop="8dp"
+               android:layout_marginBottom="8dp"
+               android:paddingTop="4dp"
+                 android:paddingBottom="4dp"
+                android:layout_marginLeft="30dp"
+                 android:layout_marginRight="30dp"
+              android:scaleType="centerInside"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:src="@drawable/usa_iesire" 
+              android:background="@drawable/patrat"
+              android:layout_weight="2"
+              android:onClick="exit"/>
+          <ImageView
+              android:id="@+id/imageView1"
+              android:layout_marginTop="8dp"
+               android:layout_marginBottom="8dp"
+               android:paddingTop="4dp"
+                 android:paddingBottom="4dp"
+                android:layout_marginLeft="30dp"
+                 android:layout_marginRight="30dp"
+              android:scaleType="centerInside"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:src="@drawable/scari_sus" 
+              android:background="@drawable/patrat"
+              android:layout_weight="2"
+              android:onClick="up"/>
+          <ImageView
+              android:id="@+id/imageView1"
+              android:layout_marginTop="8dp"
+               android:layout_marginBottom="8dp"
+               android:paddingTop="4dp"
+                 android:paddingBottom="4dp"
+                android:layout_marginLeft="30dp"
+                 android:layout_marginRight="30dp"
+              android:scaleType="centerInside"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:src="@drawable/scari_jos" 
+              android:background="@drawable/patrat"
+              android:layout_weight="2"
+              android:onClick="down"/>
+          <ImageView
+              android:id="@+id/imageView1"
+              android:layout_marginTop="8dp"
+               android:layout_marginBottom="8dp"
+               android:paddingTop="4dp"
+                 android:paddingBottom="4dp"
+                android:layout_marginLeft="30dp"
+                 android:layout_marginRight="30dp"
+              android:scaleType="centerInside"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:src="@drawable/scari_b" 
+              android:background="@drawable/patrat"
+              android:layout_weight="2"
+              android:onClick="both"/>
+          <ImageView
+              android:id="@+id/imageView1"
+              android:layout_marginTop="8dp"
+               android:layout_marginBottom="20dp"
+               android:paddingTop="4dp"
+                 android:paddingBottom="4dp"
+                android:layout_marginLeft="30dp"
+                 android:layout_marginRight="30dp"
+              android:scaleType="centerInside"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:src="@drawable/text" 
+              android:background="@drawable/patrat"
+              android:layout_weight="2"
+              android:onClick="text"/>
+          
+          
+         
+          
+      </LinearLayout>
+
+      <ImageView
+          android:id="@+id/imageDone"
+          android:layout_width="100dp"
+          android:layout_height="100dp"
+          android:layout_alignParentBottom="true"
+          android:layout_alignParentRight="true"
+          android:src="@drawable/done"
+          android:visibility="invisible" />
+      
+      <ImageView
+          android:id="@+id/imageQr"
+          android:layout_width="100dp"
+          android:layout_height="100dp"
+          android:layout_alignParentBottom="true"
+          android:layout_alignParentLeft="true"
+          android:src="@drawable/where_am_i"
+                    android:visibility="visible" />
+
+      <ImageView
+          android:id="@+id/imageSave"
+          android:layout_width="80dp"
+          android:layout_height="80dp"
+          android:layout_alignParentRight="true"
+          android:layout_alignParentTop="true"
+          android:src="@drawable/save"
+          android:onClick="save" />
+
+</RelativeLayout>

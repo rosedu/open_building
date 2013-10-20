@@ -1,0 +1,56 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    
+    tools:context=".MainActivity" >
+
+
+<fragment 
+          android:id="@+id/map"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:name="com.google.android.gms.maps.MapFragment"/>
+
+
+
+<ImageView
+    android:id="@+id/imageView2"
+    android:layout_width="130dp"
+    android:layout_height="130dp"
+    android:layout_alignParentBottom="true"
+    android:layout_alignParentLeft="true"
+    android:src="@drawable/add_but" />
+
+<LinearLayout
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="29dp"
+  android:layout_marginRight="29dp"
+    android:layout_marginLeft="29dp"
+    android:background="@android:color/white" >
+    
+    <EditText
+        
+    android:id="@+id/editText1"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:text="Search for a room ..."
+
+  android:layout_weight="2"  
+     >
+
+    <requestFocus />
+</EditText>
+
+<ImageView
+    android:id="@+id/imageProfile"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    
+    android:scaleType="fitStart"
+    android:src="@drawable/profile" />
+    
+</LinearLayout>
+
+</RelativeLayout>
