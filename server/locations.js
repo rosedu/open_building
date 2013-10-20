@@ -22,13 +22,11 @@ function routes(app)
   {
     console.err(err);
   }
-  //console.log(locations[1]._id);
   res.send(200,locations);
 });
 });
 
 app.post('/add_location', function(req, res){
-  //console.log("req = "+JSON.parse(req));
   console.log('add loc');
   l=req.body;
   console.log("body = "+l);
@@ -52,8 +50,7 @@ function addLocation(name,latitude,longitude, done)
   var id = uuid.v1();
 	var loc = new Location({name:name,id:id,latitude:latitude,longitude:longitude,floors:[]});
 	loc.save(function (err, loc) {
-  if (err) // TODO handle the error
-  console.log('save error'+err);
+  if (err)   console.log('save error'+err);
   done (id);
 });
 }
@@ -69,8 +66,7 @@ function addFloor(id,nr)
       console.log("loc[0]="+loc);
       loc.floors.push(nr);
       loc.save(function (err, loc) {
-      if (err) // TODO handle the error
-      console.log('save error'+err);
+      if (err)       console.log('save error'+err);
     });
   });
 }
@@ -79,7 +75,6 @@ function modifyLocation(location,name)
 {
     location[1].name = name;
     location.save(function(err) {
-    // we've updated the dog into the db here
     if (err) throw err;
   });
 }

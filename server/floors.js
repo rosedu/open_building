@@ -85,8 +85,7 @@ function createFloor(floor)
 	}
 	f.save(function (err, loc) {
 		console.log('save');
-	  if (err) // TODO handle the error
-	  console.log('save error'+err);
+	  if (err)	  console.log('save error'+err);
 	});
 	console.log('added floor'+floor.locationID);
 	locations.addFloor(floor.locationID, floor.nr);
@@ -139,7 +138,7 @@ function modifyFloor(f,floor)
 	}
 	f.save(function (err, loc) {
 		console.log('save');
-	  if (err) // TODO handle the error
+	  if (err) 
 	  console.log('save error'+err);
 	});
 }
@@ -175,7 +174,6 @@ function routes(app)
   var f = req.body;
   var id = f.locationID;
   var flNr = f.nr;
-  //console.log("location.Locations = "+locations.Location);
   Floor.find({locationID:id, nr:flNr},function (err, floors) {
   if (err) 
   {
