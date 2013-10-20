@@ -3,12 +3,13 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node startup.js"
+    "start": "node app.js"
   },
   "dependencies": {
     "express": "*",
+    "ejs": "*",
     "mongodb":"*",
-    "mongoose":"*"
-
+    "mongoose":"*",
+    "node-uuid":"*"
   }
 }
