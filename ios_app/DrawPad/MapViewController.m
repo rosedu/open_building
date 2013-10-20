@@ -15,6 +15,10 @@
 
 @property (strong, nonatomic) NSString *locationName;
 @property (strong, nonatomic) NSMutableData *data;
+@property (strong, nonatomic) NSURLConnection *addPlaceConnection;
+
+@property (strong, nonatomic) NSNumber *temp_lat;
+@property (strong, nonatomic) NSNumber *temp_long;
 
 @end
 
@@ -65,41 +69,55 @@ bool addBuilding;
 
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
-    NSError *jsonParsingError = nil;
-    NSArray *publicTimeline = [NSJSONSerialization JSONObjectWithData:self.data
-                                                              options:0 error:&jsonParsingError];
-    for(id place in publicTimeline)
+    if( self.addPlaceConnection != connection )
     {
-        Place *newPlace = [[Place alloc] init];
-        newPlace.name = [place valueForKey:@"name"];
-        newPlace.idPlace = [place valueForKey:@"id"];
-        newPlace.latitude = [place valueForKey:@"latitude"];
-        newPlace.longitude = [place valueForKey:@"longitude"];
-        newPlace.floors = [place valueForKey:@"floors"];
+        NSError *jsonParsingError = nil;
+        NSArray *publicTimeline = [NSJSONSerialization JSONObjectWithData:self.data
+                                                              options:0 error:&jsonParsingError];
+        for(id place in publicTimeline)
+        {
+            Place *newPlace = [[Place alloc] init];
+            newPlace.name = [place valueForKey:@"name"];
+            newPlace.idPlace = [place valueForKey:@"id"];
+            newPlace.latitude = [place valueForKey:@"latitude"];
+            newPlace.longitude = [place valueForKey:@"longitude"];
+            newPlace.floors = [place valueForKey:@"floors"];
         
-        [self.places addObject:newPlace];
+            [self.places addObject:newPlace];
+        }
+        [self putThePlacesOnMap];
     }
     
-    [self putThePlacesOnMap];
 
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
-    [self.data appendData:data];
+    if( self.addPlaceConnection ==  connection )
+    {
+        Place *place = [[Place alloc] init];
+        place.name = self.locationName;
+        place.latitude = self.temp_lat;
+        place.longitude = self.temp_long;
+        
+        NSError *jsonParsingError = nil;
+        NSArray *array = [NSJSONSerialization JSONObjectWithData:data
+                                        options:0 error:&jsonParsingError];
+        
+        place.idPlace = [array valueForKey:@"id"];
+        NSLog(@"creat nou %@",place.idPlace);
+        [self.places addObject:place];
+    }
+    else
+    {
+        [self.data appendData:data];
+    }
 }
 
 -(void)putThePlacesOnMap
 {
     for(Place *place in self.places)
     {
-//        MyPointAnnotation *annotation = [[MyPointAnnotation alloc] init];
-//        [annotation setCoordinate:CLLocationCoordinate2DMake(place.latitude.doubleValue, place.longitude.doubleValue)];
-//        [annotation setTitle:place.name]; //You can set the subtitle too
-//        annotation.index = [self.places indexOfObject:place];
-//        
-//        [self.mapView addAnnotation:annotation];
-
         CLLocationCoordinate2D coordinate2;
         coordinate2.latitude = place.latitude.doubleValue;
         coordinate2.longitude = place.longitude.doubleValue;
@@ -119,13 +137,9 @@ bool addBuilding;
     
         MyPointAnnotation *point1 = [[MyPointAnnotation alloc] initWithTitle:self.locationName andCoordinate:CLLocationCoordinate2DMake(tapPoint.latitude,tapPoint.longitude)];
         
-        Place *place = [[Place alloc] init];
-        place.name = self.locationName;
-        place.latitude = @(tapPoint.latitude);
-        place.longitude = @(tapPoint.longitude);
+        self.temp_lat = @(tapPoint.latitude);
+        self.temp_long = @(tapPoint.longitude);
         point1.index = self.places.count;
-        [self.places addObject:place];
-
         
         [self.mapView addAnnotation:point1];
         
@@ -145,7 +159,7 @@ bool addBuilding;
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         [request setHTTPBody:postData];
         
-        [[NSURLConnection alloc] initWithRequest:request delegate:nil];
+        self.addPlaceConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
         addBuilding = NO;
         self.infoLabel.hidden = YES;
     }
@@ -188,6 +202,7 @@ bool userWasCentered = false;
 {
     UIStoryboard *storybard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     ViewController *editVC = [storybard instantiateViewControllerWithIdentifier:@"editMode-vc"];
+    
     editVC.place = place;
     editVC.test = self.places;
     [self.navigationController pushViewController:editVC animated:YES];

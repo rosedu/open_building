@@ -60,6 +60,8 @@
 {
     [super viewDidLoad];
     
+    NSLog(@"%@ %@ %@",self.place.idPlace, self.place.longitude, self.place.latitude);
+    
     self.myView.frame_x1 = 0;
     self.myView.frame_y1 = 0;
     self.myView.frame_x2 = self.myView.frame.size.width;
@@ -84,8 +86,10 @@
         self.myView.editMode = NO;
         self.editMode = NO;
         
-        [self getFloorNumber:0];
+    
     }
+    
+    [self getFloorNumber:0];
     [self.myView refresh];
     
     UIPinchGestureRecognizer *pinchGesture = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(pinch:)];
@@ -570,6 +574,8 @@ int muta = 0;
 {
     NSData *postData = [self buildJSON];
     
+    NSLog(@"JSON %@",[[NSString alloc] initWithData:postData encoding:NSUTF8StringEncoding]);
+    
     if( postData)
     {
         NSString *postLength = [NSString stringWithFormat:@"%d", [postData length]];
@@ -592,6 +598,7 @@ int muta = 0;
 
 -(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
+    NSLog(@"%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
     if( self.floorConnection == connection )
     {
         [self.floorData appendData:data];
@@ -605,6 +612,8 @@ int muta = 0;
         NSError *jsonParsingError = nil;
         NSDictionary *params = [NSJSONSerialization JSONObjectWithData:self.floorData
                                                                   options:0 error:&jsonParsingError];
+        
+        NSLog(@"FLOOR DATA %@", [[NSString alloc] initWithData:self.floorData encoding:NSUTF8StringEncoding]);
         
         if( ((NSArray *)[params valueForKey:@"items"]).count == 0) return;
         
@@ -631,6 +640,7 @@ int muta = 0;
                 NSDictionary *dict = [item valueForKey:@"doorInfo"];
                 
                 door.centerPoint = CGPointMake( ((NSNumber *)[dict valueForKey:@"x"]).integerValue, ((NSNumber *)[dict valueForKey:@"y"]).integerValue);
+                NSLog(@"%@",[dict valueForKey:@"direction"]);
                 if( [[dict valueForKey:@"direction"] isEqualToString:@"inside"] )
                 {
                     door.doorType = kInsideDoor;
