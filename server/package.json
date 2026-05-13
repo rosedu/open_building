@@ -9,7 +9,7 @@
     "express": "*",
     "ejs": "*",
     "mongodb":"*",
-    "mongoose":"*",
+    "mongoose":">6.13.9",
     "node-uuid":"*"
   }
 }
